@@ -87,11 +87,37 @@
         console.log('get in progress:'+response.length);
         me.getResult = "bytes received:"+response.length;
       });
-
+      
+      var form=new FormData();
+      form.append("memberToken",1234);
+      form.append("id",1);
+      
       stream.fetch({
         method: 'POST',
         url: POST_URL,
         type:'json'
+      }, function(ret) {
+        if(!ret.ok){
+          me.postResult = "request failed";
+        }else{
+          console.log('get:'+JSON.stringify(ret));
+          me.postResult = JSON.stringify(ret.data);
+        }
+      },function(response){
+        console.log('get in progress:'+response.length);
+        me.postResult = "bytes received:"+response.length;
+      });
+      
+      //POST传参
+      var form=new FormData();
+      form.append("memberToken",1234);
+      form.append("id",1);
+      
+      stream.fetch({
+        method: 'POST',
+        url: POST_URL,
+        type:'json',
+        body:form
       }, function(ret) {
         if(!ret.ok){
           me.postResult = "request failed";
